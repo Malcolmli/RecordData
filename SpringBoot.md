@@ -21,6 +21,9 @@
     @RunWith(SpringRunner.class)
     @SpringBootTest(classes = Application.class)
     public class UserServiceTest {
+	    @Autowired
+	    UserService userService;
+	
         @MockBean
 	    private CreditSystemService creditSystemService;
 
