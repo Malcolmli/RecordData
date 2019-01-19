@@ -26,11 +26,11 @@
 
 	    @Test
 	    public void testService() {
-		    int userId = 10;
-		    int expectedCredit = 100;
-		    when(this.creditSystemService.getUserCredit(anyInt())).thenReturn(expectedCredit);
-		    int credit = userService.getCredit(10);
-		    assertEquals(expectedCredit, credit);
+		int userId = 10;
+		int expectedCredit = 100;
+		when(this.creditSystemService.getUserCredit(anyInt())).thenReturn(expectedCredit);
+		int credit = userService.getCredit(10);
+		assertEquals(expectedCredit, credit);
 	    }
     }
     
