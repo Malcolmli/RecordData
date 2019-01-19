@@ -22,16 +22,16 @@
     @SpringBootTest(classes = Application.class)
     public class UserServiceTest {
         @MockBean
-	      private CreditSystemService creditSystemService;
+	private CreditSystemService creditSystemService;
 
-	      @Test
-	      public void testService() {
-		        int userId = 10;
-		        int expectedCredit = 100;
-		        when(this.creditSystemService.getUserCredit(anyInt())).thenReturn(expectedCredit);
-		        int credit = userService.getCredit(10);
-		        assertEquals(expectedCredit, credit);
-	      }
+	@Test
+	public void testService() {
+		int userId = 10;
+		int expectedCredit = 100;
+		when(this.creditSystemService.getUserCredit(anyInt())).thenReturn(expectedCredit);
+		int credit = userService.getCredit(10);
+		assertEquals(expectedCredit, credit);
+	}
     }
     
 [完整引用](https://github.com/Malcolmli/SpringBoot2Samples/tree/master/09_test/ch9.test)
