@@ -8,11 +8,13 @@
 > Suite 将测试类归成一组  
 > Runner 运行测试  
 
-### Mockito
-> @MockBean 自动注入，提供模拟实现  
-
 ### MockMvc 
 > 是Spring提供的专门用于测试Spring MVC 类  
 
+### Mockito
+> @MockBean 自动注入，提供模拟实现 或者 mock 创建对象
+> when().thenReturn()  
+> verify 校验对象的调用  
+> InOrder 校验调用顺序 
 
 [代码示例](https://github.com/Malcolmli/SpringBoot2Samples/tree/master/09_test/ch9.test)
