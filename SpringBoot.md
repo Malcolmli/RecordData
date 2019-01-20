@@ -38,4 +38,10 @@
     }
     
 [完整引用](https://github.com/Malcolmli/SpringBoot2Samples/tree/master/09_test/ch9.test)
+
+## NoSql
+
+### Redis
+### MongonDB
+### Elasticsearch
  
