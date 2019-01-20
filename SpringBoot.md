@@ -43,5 +43,7 @@
 
 ### Redis
 ### MongoDB
+#### MongoTemplate
+> 集成MongoDB  
 ### Elasticsearch
  
