@@ -17,6 +17,10 @@
             - [RedisCacheManager](#RedisCacheManager)
     - [MongoDB](#MongoDB)
         - [MongoTemplate](#MongoTemplate)
+            - [新增](#新增)
+            - [查询](#查询)
+            - [删除](#删除)
+            - [更新](#更新)
     - [Elasticsearch](#Elasticsearch)
 
 ## Testing单元测试
@@ -236,8 +240,52 @@ SpringBoot的starter引用包
 > spring.cache.type配置的为Redis，Spring Boot会自动生成RedisCacheManager对象。  
 
 ### MongoDB
+> 对于那些需要统计、按条件查询和分析的数据，MongoDB提供了支持，它可以说是一个最接近于关系数据库的NoSQL。
+
 #### MongoTemplate
-> 集成MongoDB  
+> SpringBoot集成MongoDB的操作类  
+
+##### 新增
+
+    // 使用名称为user文档保存用户信息
+    mongoTmpl.save(user, "user");
+    // 如果文档采用类名首字符小写，则可以这样保存
+    mongoTmpl.save(user);
+
+##### 查询
+准则（Criteria）构建查询条件  
+
+    // 将用户名称和备注设置为模糊查询准则
+    Criteria  criteriaId  = Criteria.where("id").is(id);
+    Criteria  criteria = Criteria.where("userName").regex(userName).and("note").regex(note);
+    // 构建查询条件,并设置分页跳过前skip个，至多返回limit个
+    Query query = Query.query(criteria).limit(limit).skip(skip);
+
+使用find方法，将结果查询为一个列表，返回给调用者
+    
+    // 执行
+	List<User> userList = mongoTmpl.find(query, User.class);
+
+##### 删除
+ 
+采用remove方法将数据删除，执行删除后会返回一个DeleteResult对象来记录此次操作的结果。  
+
+    DeleteResult result = mongoTmpl.remove(query, User.class);
+
+##### 更新
+
+    // 确定要更新的对象
+    Criteria criteriaId  = Criteria.where("id").is(id);
+    Query query = Query.query(criteriaId);
+    // 定义更新对象，后续可变化的字符串代表排除在外的属性
+    Update update = Update.update("userName", userName);
+    update.set("note", note);
+    // 更新第一个文档
+    UpdateResult result = mongoTmpl.updateFirst(query, update, User.class);
+    // 更新多个对象
+    UpdateResult result = mongoTmpl.updateMulti(query, update, User.class);
+
+执行更新方法后，会返回一个UpdateResult对象，它有3个属性，分别是matchedCount、modifiedCount和upsertedId，其中，matchedCount代表与Query对象匹配的文档数，modifiedCount代表被更新的文档数，upsertedId表示如果存在因为更新而插入文档的情况会返回插入文档的信息。
 
 ### Elasticsearch
  
