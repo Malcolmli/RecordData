@@ -1,13 +1,23 @@
 # SpringBoot
 
-<!-- TOC -->
- - [Testing单元测试](#Testing单元测试)
-     - [Junit](#Junit)
-     - [MockMvc](#MockMvc)
-     - [Mockito](#Mockito)
- - [NoSql](#NoSql)
-<!-- /TOC -->
-
+- [Testing单元测试](#Testing单元测试)
+    - [Junit](#Junit)
+    - [MockMvc](#MockMvc)
+    - [Mockito](#Mockito)
+- [NoSql](#NoSql)
+    - [Redis](#Redis)
+        - [Jedis](#Jedis)
+        - [RedisTemplate](#RedisTemplate)
+        - [Redis高级用法](#Redis高级用法)
+            - [Redis消息监听器](#Redis消息监听器)
+            - [定义Redis的监听容器](#定义Redis的监听容器)
+            - [RedisTemplate发送消息](#RedisTemplate发送消息)
+        - [Redis缓存](#Redis缓存)
+            - [Spring缓存注解](#Spring缓存注解)
+            - [RedisCacheManager](#RedisCacheManager)
+    - [MongoDB](#MongoDB)
+        - [MongoTemplate](#MongoTemplate)
+    - [Elasticsearch](#Elasticsearch)
 
 ## Testing单元测试
 
@@ -195,7 +205,7 @@ SpringBoot的starter引用包
         return container;
     }
 
-###### RedisTemplate 发送消息
+###### RedisTemplate发送消息
 在Redis的客户端输入命令:  
 
     publish topic1 msg 
@@ -215,10 +225,15 @@ SpringBoot的starter引用包
     spring.cache.redis.key-prefix= # Redis的键前缀
     spring.cache.redis.time-to-live=0ms # 缓存超时时间戳，配置为0则不设置超时时间
     spring.cache.redis.use-key-prefix=true # 是否启用Redis的键前缀
-    
+
+###### Spring缓存注解
+首先是注解@CachePut、@Cacheable和@CacheEvict：
+- @CachePut表示将方法结果返回存放到缓存中。
+- @Cacheable 表示先从缓存中通过定义的键查询，如果可以查询到数据，则返回，否则执行该方法，返回数据，并且将返回结果保存到缓存中。
+- @CacheEvict 通过定义的键移除缓存，它有一个Boolean类型的配置项beforeInvocation，表示在方法之前或者之后移除缓存。因为其默认值为false，所以默认为方法之后将缓存移除。 
 
 ###### RedisCacheManager
-> spring.cache.type配置的为Redis，Spring Boot会自动生成RedisCacheManager对象。
+> spring.cache.type配置的为Redis，Spring Boot会自动生成RedisCacheManager对象。  
 
 ### MongoDB
 #### MongoTemplate
