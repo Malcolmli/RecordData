@@ -310,6 +310,7 @@ SpringBoot的starter引用包
 > AMQP也是一种常用的消息协议。AMQP是一个提供统一消息服务的应用层标准协议，基于此协议的客户端与消息中间件可传递消息，并不受客户端/中间件不同产品、不同开发语言等条件的限制。
 
 创建队列
+> Spring Boot的机制会自动注册这两个队列，所以并不需要自己做进一步的绑定。  
     
     @Bean
 	public Queue createQueueMsg() {
@@ -346,6 +347,7 @@ RabbitMQ服务实现
     }
 
 RabbitMQ接收器
+> 在方法上标注@RabbitListener，然后在其配置项queues配置所需要的队列名称，这样就能够直接接收到RabbitMQ所发送的消息。
 
     // 定义监听字符串队列名称
     @RabbitListener(queues = { "${rabbitmq.queue.msg}" })
