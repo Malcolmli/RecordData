@@ -22,6 +22,9 @@
             - [删除](#删除)
             - [更新](#更新)
     - [Elasticsearch](#Elasticsearch)
+- [异步消息队列](#异步消息队列)
+    - [JMS实例_ActiveMQ](#JMS实例_ActiveMQ)
+    - [AMQP_RabbitMQ](#AMQP_RabbitMQ)
 
 ## Testing单元测试
 
@@ -288,4 +291,64 @@ SpringBoot的starter引用包
 执行更新方法后，会返回一个UpdateResult对象，它有3个属性，分别是matchedCount、modifiedCount和upsertedId，其中，matchedCount代表与Query对象匹配的文档数，modifiedCount代表被更新的文档数，upsertedId表示如果存在因为更新而插入文档的情况会返回插入文档的信息。
 
 ### Elasticsearch
+
+## 异步消息队列
+> 发布订阅模式是一个系统约定将消息发布到一个主题（Topic）中，然后各个系统就能够通过订阅这个主题，根据发送过来的信息处理对应的业务。
+
+在实际工作中实现JMS服务的规范有很多，其中比较常用的有传统的ActiveMQ和分布式的Kafka。为了更为可靠和安全，还存在AMQP协议（Advanced Message Queuing Protocol），实现它比较常用的有RabbitMQ等。
+
+### JMS实例_ActiveMQ
+> 消息的发送或者接收可以通过模板对象JmsTemplate去处理，关于接收信息，Spring4.1之后的版本提供注解@JmsListener进一步地简化了开发者的工作。
  
+    jmsTemplate.convertAndSend(message);
+
+    @JmsListener(destination = "监听地址")
+
+ 在默认的情况下，JmsTemplate会提供一个SimpleMessageConverter去提供转换规则，它实现了MessageConverter接口。如果要使用其他的序列化器，如SerializerMessageConverter（序列化消息转换器）或者Jackson2JsonMessageConverter（Json消息转换器），只需要使用JmsTemplate的setMessageConverter方法进行设置即可，不过在一般情况下SimpleMessageConverter已经足够使用了。
+
+### AMQP_RabbitMQ
+> AMQP也是一种常用的消息协议。AMQP是一个提供统一消息服务的应用层标准协议，基于此协议的客户端与消息中间件可传递消息，并不受客户端/中间件不同产品、不同开发语言等条件的限制。
+
+创建队列
+    
+    @Bean
+	public Queue createQueueMsg() {
+		// 创建字符串消息队列，boolean值代表是否持久化消息
+		return new Queue(“队列名称”, true);
+	}
+
+RabbitMQ服务实现
+
+    public class RabbitMqServiceImpl 
+        // 实现ConfirmCallback接口，这样可以回调
+        implements ConfirmCallback, RabbitMqService {
+        @Autowired
+        private RabbitTemplate rabbitTemplate = null;
+        // 发送消息
+        @Override
+        public void sendMsg(String msg) {
+            System.out.println("发送消息: 【" + msg + "】");
+            // 设置回调
+            rabbitTemplate.setConfirmCallback(this);
+            // 发送消息，通过msgRouting确定队列
+            rabbitTemplate.convertAndSend(msgRouting, msg);
+        }
+        // 回调确认方法
+        @Override
+        public void confirm(CorrelationData correlationData, 
+            boolean ack, String cause) {
+            if (ack) {
+                System.out.println("消息成功消费");
+            } else {
+                System.out.println("消息消费失败:" + cause);
+            }
+        }
+    }
+
+RabbitMQ接收器
+
+    // 定义监听字符串队列名称
+    @RabbitListener(queues = { "${rabbitmq.queue.msg}" })
+    public void receiveMsg(String msg) {
+         System.out.println("收到消息: 【" + msg + "】");
+    }
