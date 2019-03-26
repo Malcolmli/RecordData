@@ -19,3 +19,6 @@
  >2.在栈内存中分配引用变量foo。  
  >3.在堆内存中按照Foo类型信息分配实例变量内存空间；然后，将栈中引用foo指向foo对象堆内存的首地址。  
  >4.使用引用foo调用方法，根据foo引用的类型Foo调用f方法。  
+ 
+ ## 并发
+ [Java并发编程与高并发](http://naotu.baidu.com/file/6808ea88451b49ba4964e2c81d0d2c8b?token=3a5de17f2ea7220d "Java并发编程与高并发解决方案")
