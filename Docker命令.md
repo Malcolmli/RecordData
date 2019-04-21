@@ -108,8 +108,16 @@
     #重启网络服务
     systemctl  restart network
     ```
+16. Portainer图形化管理安装
 
-
+    ```shell
+    vim /etc/sysconfig/docker
+    ```
+    OPTIONS='-Htcp://0.0.0.0:2375 -H unix:///var/run/docker.sock'
+    
+    ```shell
+    docker run -d -p 9000:9000 portainer 
+    ```
 
 ## 二、安装PXC集群，负载均衡，双机热备
 
