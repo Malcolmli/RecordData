@@ -1,4 +1,4 @@
-# 《Docker环境下的前后端分离部署与运维》课程脚本
+# Docker部署与运维
 
 
 ## 一、Docker虚拟机常用命令
@@ -104,10 +104,10 @@
 
     文件中添加`net.ipv4.ip_forward=1`这个配置
 
-    ​```shell
+    ```shell
     #重启网络服务
     systemctl  restart network
-    ​```
+    ```
 
 
 
