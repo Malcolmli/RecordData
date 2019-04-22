@@ -119,6 +119,12 @@
     docker run -d -p 9000:9000 portainer 
     ```
 
+17. redis容器运行
+
+    ```shell
+    docker run -d --name myredis -p 6379:6379 redis --requirepass "mypassword"
+    ```
+
 ## 二、安装PXC集群，负载均衡，双机热备
 
 1. 安装PXC镜像
