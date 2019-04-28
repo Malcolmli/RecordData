@@ -6,7 +6,7 @@
 
 Java在这方面提供了支持，可以用java.io.DataInputStream类对象来完成对流内数据的Unsigned读取
 
-### 方案二：利用Java位运算符，完成Unsigned转换。
+### 利用Java位运算符，完成Unsigned转换。
 
     //将data字节型数据转换为0~255 (0xFF 即BYTE)。
     public int getUnsignedByte (byte data){       
