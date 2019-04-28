@@ -18,7 +18,7 @@ Java在这方面提供了支持，可以用java.io.DataInputStream类对象来�
     }
     //将int数据转换为0~4294967295 (0xFFFFFFFF即DWORD)。
     public long getUnsignedIntt (int data){       
-        return data&0x0FFFFFFFFl;
+        return data&0x0FFFFFFFFL;
     }
 
 ## 内存管理（堆、栈、方法区）
