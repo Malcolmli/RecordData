@@ -1,5 +1,25 @@
 # Java 备忘点
 
+## 无符号类型的处理
+
+### 如果在Java中进行流(Stream)数据处理，可以用DataInputStream类对Stream中的数据以Unsigned读取
+
+Java在这方面提供了支持，可以用java.io.DataInputStream类对象来完成对流内数据的Unsigned读取
+
+### 方案二：利用Java位运算符，完成Unsigned转换。
+
+    //将data字节型数据转换为0~255 (0xFF 即BYTE)。
+    public int getUnsignedByte (byte data){       
+        return data&0x0FF;
+    }
+    //将data字节型数据转换为0~65535 (0xFFFF 即 WORD)。
+    public int getUnsignedByte (short data){      
+        return data&0x0FFFF;
+    }
+    //将int数据转换为0~4294967295 (0xFFFFFFFF即DWORD)。
+    public long getUnsignedIntt (int data){       
+        return data&0x0FFFFFFFFl;
+    }
 
 ## 内存管理（堆、栈、方法区）
 
