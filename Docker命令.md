@@ -19,7 +19,7 @@
 
    ```shell
    service docker start
-   service docker start
+   service docker restart
    service docker stop
    ```
 
@@ -40,26 +40,32 @@
    ```shell
    docker images
    ```
+   
+7. 镜像名修改
 
-7. 删除镜像
+   ```shell
+   docker tag 镜像id 镜像名:版本
+   ```
+   
+8. 删除镜像
 
    ```shell
    docker rmi 镜像名称
    ```
 
-8. 运行容器
+9. 运行容器
 
    ```shell
    docker run 启动参数  镜像名称
    ```
 
-9. 查看容器列表
+10. 查看容器列表
 
    ```shell
    docker ps -a
    ```
 
-10. 停止、挂起、恢复容器
+11. 停止、挂起、恢复容器
 
     ```shell
     docker stop 容器ID
@@ -67,19 +73,19 @@
     docker unpase 容器ID
     ```
 
-11. 查看容器信息
+12. 查看容器信息
 
     ```shell
     docker inspect 容器ID
     ```
 
-12. 删除容器
+13. 删除容器
 
     ```shell
     docker rm 容器ID
     ```
 
-13. 数据卷管理
+14. 数据卷管理
 
     ```shell
     docker volume create 数据卷名称  #创建数据卷
@@ -87,7 +93,7 @@
     docker volume inspect 数据卷名称  #查看数据卷
     ```
 
-14. 网络管理
+15. 网络管理
 
     ```shell
     docker network ls 查看网络信息
@@ -95,7 +101,7 @@
     docker network rm 网络名称
     ```
 
-15. 避免VM虚拟机挂起恢复之后，Docker虚拟机断网
+16. 避免VM虚拟机挂起恢复之后，Docker虚拟机断网
 
     ```shell
     vi /etc/sysctl.conf
@@ -106,9 +112,16 @@
 
     ```shell
     #重启网络服务
-    systemctl  restart network
+    systemctl restart network
     ```
-16. Portainer图形化管理安装
+    
+17. mysql容器运行
+
+    ```shell
+    docker run -d --name mysql -p 6379:6379 -e MYSQL_ROOT_PASSWORD="mypassword" mysql:5.7
+    ```
+    
+18. Portainer图形化管理安装
 
     ```shell
     vim /etc/sysconfig/docker
@@ -119,7 +132,7 @@
     docker run -d -p 9000:9000 portainer 
     ```
 
-17. redis容器运行
+19. redis容器运行
 
     ```shell
     docker run -d --name myredis -p 6379:6379 redis --requirepass "mypassword"
