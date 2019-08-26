@@ -61,9 +61,9 @@
 
 10. 查看容器列表
 
-   ```shell
-   docker ps -a
-   ```
+    ```shell
+    docker ps -a
+    ```
 
 11. 停止、挂起、恢复容器
 
