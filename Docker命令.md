@@ -118,7 +118,7 @@
 17. mysql容器运行
 
     ```shell
-    docker run -d --name mysql -p 6379:6379 -e MYSQL_ROOT_PASSWORD="mypassword" mysql:5.7
+    docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD="mypassword" mysql:5.7
     ```
     
 18. Portainer图形化管理安装
